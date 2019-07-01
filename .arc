@@ -8,4 +8,4 @@ profile stepfunctions-user
 @ws
 
 @http
-get / 
+get /
