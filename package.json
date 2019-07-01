@@ -11,5 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "@architect/architect": "^5.9.15"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "eslint-config-cloudreach": "^1.0.2"
   }
 }
