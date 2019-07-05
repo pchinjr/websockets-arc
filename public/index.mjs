@@ -34,6 +34,6 @@ msg.addEventListener('keyup', function(e) {
   if (e.key == 'Enter') {
     const text = e.target.value;  // get the text;
     e.target.value = '';        // clear the text;
-    ws.send(JSON.stringify({text}));
+    ws.send(JSON.stheringify({text}));
   }
 });

@@ -1,7 +1,8 @@
 
 let arc = require('@architect/functions');
-let static = assetPath => `/_static/${assetPath}`;
 let getURL = require('./get-web-socket-url');
+let static = assetPath => `${process.env.NODE_ENV}/_static/${assetPath}`;
+
 
 exports.handler = async function http(req) {
   return {
@@ -15,6 +16,7 @@ exports.handler = async function http(req) {
 <script>
 window.WS_URL = '${getURL()}'
 </script>
+<script type=module src="/_static/index.mjs"></script>
 <script type=module src=${static('index.mjs')}></script>
 </body>
 </html>`
