@@ -1,7 +1,0 @@
-{
-  "name": "ws-apigw-ws-dollarconnect",
-  "dependencies": {
-    "@architect/data": "^3.0.5",
-    "@architect/functions": "^3.2.1"
-  }
-}

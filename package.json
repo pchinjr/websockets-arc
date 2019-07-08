@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@architect/architect": "^5.9.15"
+    "@architect/architect": "^5.9.16",
+    "@architect/functions": "^3.2.1"
   },
   "devDependencies": {
     "eslint": "^6.0.1",
