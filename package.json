@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@architect/architect": "^5.9.17",
+    "@architect/architect": "^5.9.18",
     "@architect/functions": "^3.2.1"
   },
   "devDependencies": {
