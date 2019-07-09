@@ -13,3 +13,7 @@ production pchinjr-ws-demo-production
 
 @http
 get /
+
+@tables
+connection_table
+  connectionId *String

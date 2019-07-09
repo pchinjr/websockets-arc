@@ -6,9 +6,11 @@
     <main>Loading...</main>
     <input id=message type=text placeholder="Enter Message" autofocus>
   </body>
+  <script src='/staging/_static/get-web-socket-url.js'></script>
   <script src='/_static/get-web-socket-url.js'></script>
   <script>
   window.WS_URL = getWS();
   </script>
+  <script type=module src='staging/_static/index.mjs'></script>
   <script type=module src='/_static/index.mjs'></script>
 </html>

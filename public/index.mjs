@@ -14,26 +14,26 @@ ws.onerror = console.log
 
 // connect to the web socket
 function open() {
-  let ts = new Date(Date.now()).toISOString()
-  main.innerHTML = `<p><b><code>${ts} - opened</code></b></p>`
+  let ts = new Date(Date.now()).toISOString();
+  main.innerHTML = `<p><b><code>${ts} - opened</code></b></p>`;
 }
 
 // report a closed web socket connection
 function close() {
-  main.innerHTML = 'Closed <a href=/>reload</a>'
+  main.innerHTML = 'Closed <a href=/>reload</a>';
 }
 
 // write a message into main
 function message(e) {
-  let msg = JSON.parse(e.data)
-  main.innerHTML += `<p><code>${msg.text}</code></p>`
+  let msg = JSON.parse(e.data);
+  main.innerHTML += `<p><code>${msg.text}</code></p>`;
 }
 
 // sends messages to the lambda
 msg.addEventListener('keyup', function(e) {
   if (e.key == 'Enter') {
-    let text = e.target.value // get the text
-    e.target.value = ''       // clear the text
-    ws.send(JSON.stringify({text}))
+    let text = e.target.value; // get the text
+    e.target.value = '';       // clear the text
+    ws.send(JSON.stringify({text}));
   }
 })
