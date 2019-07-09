@@ -1,16 +1,16 @@
 // get the web socket url from the backend
-let url = window.WS_URL
+let url = window.WS_URL;
 
 // all the DOM nodes this script will mutate
-let main = document.getElementsByTagName('main')[0]
-let msg = document.getElementById('message')
+let main = document.getElementsByTagName('main')[0];
+let msg = document.getElementById('message');
 
 // setup the web socket
-let ws = new WebSocket(url)
-ws.onopen = open
-ws.onclose = close
-ws.onmessage = message
-ws.onerror = console.log
+let ws = new WebSocket(url);
+ws.onopen = open;
+ws.onclose = close;
+ws.onmessage = message;
+ws.onerror = console.log;
 
 // connect to the web socket
 function open() {
@@ -25,9 +25,13 @@ function close() {
 
 // write a message into main
 function message(e) {
-  console.log(e);
   let msg = JSON.parse(e.data);
-  main.innerHTML += `<p><code>${msg.text}</code></p>`;
+  console.log(msg);
+  if(msg.action === 'connection') {
+    document.getElementById('connections').innerText = `There are ${msg.count} connections`;
+  } else {
+    main.innerHTML += `<p><code>${msg.text}</code></p>`;
+  }
 }
 
 // sends messages to the lambda
@@ -37,4 +41,4 @@ msg.addEventListener('keyup', function(e) {
     e.target.value = '';       // clear the text
     ws.send(JSON.stringify({text}));
   }
-})
+});

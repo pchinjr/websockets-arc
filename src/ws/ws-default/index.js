@@ -7,13 +7,15 @@ exports.handler = async function ws(event) {
 
   const ts = new Date(Date.now()).toISOString();
   const message = JSON.parse(event.body);
-  const text = `${ts} - ${message.text}`;
 
   const scan = await data.connection_table.scan({});
+  const text = `${ts} - ${message.text}`;
+
   scan.Items.map(item => arc.ws(event).send({
     id: item.connectionId,
     payload: {text}
-  }));
+    })
+  );
 
   // const ts = new Date(Date.now()).toISOString();
   // const connectionId = event.requestContext.connectionId;
