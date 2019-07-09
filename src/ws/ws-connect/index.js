@@ -26,8 +26,7 @@ exports.handler = async function ws(event) {
     id: item.connectionId,
     payload: payload
     })
-  ).then(console.log('connection promise handler complete'));
-
+  );
   // await arc.ws(event).send({
   //   id: connectionId,
   //   payload: {action: 'connection', count: scan.Count }
