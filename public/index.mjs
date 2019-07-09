@@ -25,6 +25,7 @@ function close() {
 
 // write a message into main
 function message(e) {
+  console.log(e);
   let msg = JSON.parse(e.data);
   main.innerHTML += `<p><code>${msg.text}</code></p>`;
 }

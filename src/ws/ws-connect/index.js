@@ -10,7 +10,7 @@ exports.handler = async function ws(event) {
   const connectionId = event.requestContext.connectionId;
   const params = {'connectionId': connectionId};
   await data.connection_table.put(params);
-  const ids = await data.connection_table.scan({});
-  console.log(ids);
+  const scan = await data.connection_table.scan({});
+  console.log(scan);
   return {statusCode: 200};
 };

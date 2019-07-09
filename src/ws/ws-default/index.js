@@ -1,21 +1,29 @@
-let arc = require('@architect/functions')
+const arc = require('@architect/functions');
+const data = require('@architect/data');
 
-/**
- * append a timestamp and echo the message back to the connectionId
- */
 exports.handler = async function ws(event) {
 
-  console.log('ws-default called with', event)
+  console.log('ws-default called with', event);
 
-  let ts = new Date(Date.now()).toISOString()
-  let connectionId = event.requestContext.connectionId
-  let message = JSON.parse(event.body)
-  let text = `${ts} - ${message.text}`
+  const ts = new Date(Date.now()).toISOString();
+  const message = JSON.parse(event.body);
+  const text = `${ts} - ${message.text}`;
 
-  await arc.ws(event).send({
-    id: connectionId,
+  const scan = await data.connection_table.scan({});
+  scan.Items.map(item => arc.ws(event).send({
+    id: item.connectionId,
     payload: {text}
-  })
+  }));
 
-  return {statusCode: 200}
-}
+  // const ts = new Date(Date.now()).toISOString();
+  // const connectionId = event.requestContext.connectionId;
+  // const message = JSON.parse(event.body);
+  // const text = `${ts} - ${message.text}`;
+
+  // await arc.ws(event).send({
+  //   id: connectionId,
+  //   payload: {text}
+  // });
+
+  return {statusCode: 200};
+};

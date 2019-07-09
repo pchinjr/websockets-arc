@@ -11,4 +11,4 @@ exports.handler = async function ws(event) {
   const ids = await data.connection_table.scan({});
   console.log(ids);
   return {statusCode: 200};
-}
+};
