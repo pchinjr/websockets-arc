@@ -11,6 +11,23 @@
   <script src='/_static/get-web-socket-url.js'></script>
   <script>
   window.WS_URL = getWS();
+  // on new connection instantiate a new head 
+   // on action: connection; create head with connection id
+   // ws send to all active connections in table 
+   
+  // handle device data on client side 
+    // on new data send update to all active connections 
+  
+  // rotate head with new data on connectionid
+
+  function handleOrientation(e) {
+    var x = event.beta;  // In degree in the range [-180,180]
+    var y = event.gamma; // In degree in the range [-90,90]
+    var face = document.getElementsByTagName('img');
+    face.setAttribute('style', `transform: rotate(${y}deg)`);
+  }
+
+  window.addEventListener('deviceorientation', handleOrientation);
   </script>
   <script type=module src='staging/_static/index.mjs'></script>
   <script type=module src='/_static/index.mjs'></script>

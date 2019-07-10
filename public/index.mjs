@@ -1,9 +1,11 @@
 // get the web socket url from the backend
 const url = window.WS_URL;
+let globalId = window.STATE_ID;
 
 // all the DOM nodes this script will mutate
 const main = document.getElementsByTagName('main')[0];
 const msg = document.getElementById('message');
+const faceDiv = document.getElementById('face');
 
 // setup the web socket
 const ws = new WebSocket(url);
@@ -16,22 +18,44 @@ ws.onerror = console.log;
 function open() {
   let ts = new Date(Date.now()).toISOString();
   main.innerHTML = `<p><b><code>${ts} - opened</code></b></p>`;
-  ws.send(JSON.stringify({action: 'connected'}));
+  let payload = {
+    action: 'connected'
+  };
+  ws.send(JSON.stringify(payload));
 }
 
 // report a closed web socket connection
 function close() {
   main.innerHTML = 'Closed <a href=/>reload</a>';
+  // let payload = {
+  //   action: 'disconnected'
+  // };
+  // ws.send(JSON.stringify(payload));
 }
 
 // write a message into main
 function message(e) {
   let msg = JSON.parse(e.data);
-  console.log(`Message is ${msg}`);
-  if(msg.action === 'connection') {
-    document.getElementById('connections').innerText = `There are ${msg.count} connections`;
-  } else {
-    main.innerHTML += `<p><code>${msg.text}</code></p>`;
+  //console.log(msg.action);
+  //main.innerHTML += `<p><code>${msg.text}</code></p>`;
+
+  if(msg.action === 'connected') {
+    console.log('connected message received');
+    main.innerHTML += `${msg.face}`;
+  }
+
+  if(msg.action === 'disconnected') {
+    console.log('disconnected message received');
+    console.log(msg);
+    let removeId = `${msg.removeId}/`;
+    console.log(removeId)
+    let face = document.getElementById(removeId);
+    face.remove();
+  }
+
+  if(msg.action === 'GLOBAL_ID') {
+    globalId = `${msg.id}`;
+    console.log(globalId);
   }
 }
 
