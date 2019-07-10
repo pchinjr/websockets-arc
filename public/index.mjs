@@ -1,12 +1,12 @@
 // get the web socket url from the backend
-let url = window.WS_URL;
+const url = window.WS_URL;
 
 // all the DOM nodes this script will mutate
-let main = document.getElementsByTagName('main')[0];
-let msg = document.getElementById('message');
+const main = document.getElementsByTagName('main')[0];
+const msg = document.getElementById('message');
 
 // setup the web socket
-let ws = new WebSocket(url);
+const ws = new WebSocket(url);
 ws.onopen = open;
 ws.onclose = close;
 ws.onmessage = message;
@@ -14,7 +14,7 @@ ws.onerror = console.log;
 
 // connect to the web socket
 function open() {
-  const ts = new Date(Date.now()).toISOString();
+  let ts = new Date(Date.now()).toISOString();
   main.innerHTML = `<p><b><code>${ts} - opened</code></b></p>`;
   ws.send(JSON.stringify({action: 'connected'}));
 }
