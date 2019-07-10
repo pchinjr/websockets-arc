@@ -1,5 +1,5 @@
 {
-  "name": "ws-apigw-ws-dollardefault",
+  "name": "ws-demo-ws-connect",
   "dependencies": {
     "@architect/data": "^3.0.5",
     "@architect/functions": "^3.2.1"

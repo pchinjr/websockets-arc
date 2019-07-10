@@ -1,5 +1,5 @@
 {
-  "name": "ws-apigw-ws-dollardisconnect",
+  "name": "ws-demo-ws-disconnect",
   "dependencies": {
     "@architect/data": "^3.0.5",
     "@architect/functions": "^3.2.1"

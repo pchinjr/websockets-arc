@@ -1,11 +1,11 @@
-// get the web socket url from the back end
+// get the web socket url from the backend
 const url = window.WS_URL;
 
 // all the DOM nodes this script will mutate
 const main = document.getElementsByTagName('main')[0];
 const msg = document.getElementById('message');
 
-// set up the web socket
+// setup the web socket
 const ws = new WebSocket(url);
 ws.onopen = open;
 ws.onclose = close;
@@ -14,26 +14,32 @@ ws.onerror = console.log;
 
 // connect to the web socket
 function open() {
-  const ts = new Date(Date.now()).toISOString()
+  let ts = new Date(Date.now()).toISOString();
   main.innerHTML = `<p><b><code>${ts} - opened</code></b></p>`;
+  ws.send(JSON.stringify({action: 'connected'}));
 }
 
 // report a closed web socket connection
 function close() {
-  main.innerHTML = 'Closed <a href=/>reload</a>'; //typo in docs?
+  main.innerHTML = 'Closed <a href=/>reload</a>';
 }
 
 // write a message into main
 function message(e) {
-  const msg = JSON.parse(e.data);
-  main.innerHTML += `<p><code>${msg.text}</code></p>`;
+  let msg = JSON.parse(e.data);
+  console.log(`Message is ${msg}`);
+  if(msg.action === 'connection') {
+    document.getElementById('connections').innerText = `There are ${msg.count} connections`;
+  } else {
+    main.innerHTML += `<p><code>${msg.text}</code></p>`;
+  }
 }
 
 // sends messages to the lambda
 msg.addEventListener('keyup', function(e) {
   if (e.key == 'Enter') {
-    const text = e.target.value;  // get the text;
-    e.target.value = '';        // clear the text;
-    ws.send(JSON.stheringify({text}));
+    let text = e.target.value; // get the text
+    e.target.value = '';       // clear the text
+    ws.send(JSON.stringify({text}));
   }
 });

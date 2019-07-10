@@ -1,15 +1,19 @@
 @app 
-ws-apigw
+ws-demo
 
 @aws
 region us-east-1
 profile stepfunctions-user
 
-@ws
+@ws 
 
 @static
-staging pchinjr-ws-staging
-production pchinjr-ws-production
+staging  pchinjr-ws-demo-staging
+production pchinjr-ws-demo-production
 
 @http
 get /
+
+@tables
+connection_table
+  connectionId *String
