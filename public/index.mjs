@@ -14,8 +14,9 @@ ws.onerror = console.log;
 
 // connect to the web socket
 function open() {
-  let ts = new Date(Date.now()).toISOString();
+  const ts = new Date(Date.now()).toISOString();
   main.innerHTML = `<p><b><code>${ts} - opened</code></b></p>`;
+  ws.send(JSON.stringify({action: 'connected'}));
 }
 
 // report a closed web socket connection
@@ -26,7 +27,7 @@ function close() {
 // write a message into main
 function message(e) {
   let msg = JSON.parse(e.data);
-  console.log(msg);
+  console.log(`Message is ${msg}`);
   if(msg.action === 'connection') {
     document.getElementById('connections').innerText = `There are ${msg.count} connections`;
   } else {
