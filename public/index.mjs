@@ -1,11 +1,9 @@
 // get the web socket url from the backend
 const url = window.WS_URL;
-let globalId = window.STATE_ID;
 
 // all the DOM nodes this script will mutate
 const main = document.getElementsByTagName('main')[0];
 const msg = document.getElementById('message');
-const faceDiv = document.getElementById('face');
 
 // setup the web socket
 const ws = new WebSocket(url);
@@ -27,13 +25,14 @@ function open() {
 // report a closed web socket connection
 function close() {
   main.innerHTML = 'Closed <a href=/>reload</a>';
-  // let payload = {
-  //   action: 'disconnected'
-  // };
-  // ws.send(JSON.stringify(payload));
+  let payload = {
+    action: 'disconnected'
+  };
+  ws.send(JSON.stringify(payload));
+
 }
 
-// write a message into main
+// action handlers onMessage events
 function message(e) {
   let msg = JSON.parse(e.data);
   //console.log(msg.action);
@@ -53,17 +52,36 @@ function message(e) {
     face.remove();
   }
 
-  if(msg.action === 'GLOBAL_ID') {
-    globalId = `${msg.id}`;
-    console.log(globalId);
+  if(msg.action === 'turn') {
+    console.log('turning event');
+    let turnId = `${msg.turnId}/`;
+    console.log(turnId);
+    let face = document.getElementById(turnId);
+    console.log(face);
+    console.log(msg);
+    face.setAttribute('style', `transform: rotate(${msg.degree}deg)`)
   }
 }
 
 // sends messages to the lambda
-msg.addEventListener('keyup', function(e) {
-  if (e.key == 'Enter') {
-    let text = e.target.value; // get the text
-    e.target.value = '';       // clear the text
-    ws.send(JSON.stringify({text}));
-  }
-});
+// msg.addEventListener('keyup', function(e) {
+//   if (e.key == 'Enter') {
+//     let text = e.target.value; // get the text
+//     e.target.value = '';       // clear the text
+//     ws.send(JSON.stringify({text}));
+//   }
+// });
+
+function handleOrientation(e) {
+  let turnY = event.gamma;
+  let payload = {
+    action: 'turn',
+    degree: turnY
+  };
+  ws.send(JSON.stringify(payload));
+
+  // let clientFace = document.getElementsByTagName('img');
+  // face.setAttribute('style', `transform: rotate(${y}deg)`);
+}
+
+window.addEventListener('deviceorientation', handleOrientation);

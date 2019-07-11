@@ -14,9 +14,9 @@ exports.handler = async function ws(event) {
   const action = JSON.parse(event.body).action;
 
   if(action === 'connected') {
-    let face = `<img src="/_static/cagepng.png" id=${connectionId}/>`;
+    let face = `<img src="staging/_static/cagepng.png" id=${connectionId}/>`;
     let clients = scan.Items;
-    clients.map(item => {
+    await Promise.all(clients.map(item => {
       let id = item.connectionId;
       let payload = {
         action: 'connected',
@@ -26,9 +26,7 @@ exports.handler = async function ws(event) {
         id: id,
         payload: payload
       });
-    });
-    // let result = await connected({event, action, connectionId});
-    // return result;
+    }));
   }
 
   if(action === 'disconnected') {
@@ -37,14 +35,30 @@ exports.handler = async function ws(event) {
       action: 'disconnected',
       removeId: connectionId
     };
-    clients.map(item => {
+    await Promise.all(clients.map(item => {
       let id = item.connectionId;
       return arc.ws(event).send({
         id: id,
         payload: payload
       });
-    });
+    }));
+  }
 
+  if(action === 'turn') {
+    let clients = scan.Items;
+    let degree = message.degree;
+    let payload = {
+      action: 'turn',
+      turnId: connectionId,
+      degree: degree
+    };
+    await Promise.all(clients.map(item => {
+      let id = item.connectionId;
+      return arc.ws(event).send({
+        id: id,
+        payload: payload
+      });
+    }));
   }
 
 
