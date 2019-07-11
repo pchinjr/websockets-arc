@@ -1,7 +1,7 @@
 const arc = require('@architect/functions');
 const data = require('@architect/data');
 
-
+// save connectionId into dynamo table, this route handler must return 200 to keep connection open
 exports.handler = async function ws(event) {
   console.log('ws-connect called with', event);
 

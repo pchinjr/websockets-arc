@@ -1,4 +1,4 @@
-// get the web socket url from the backend
+// get the web socket url
 const url = window.WS_URL;
 
 // all the DOM nodes this script will mutate
@@ -59,18 +59,9 @@ function message(e) {
     let face = document.getElementById(turnId);
     console.log(face);
     console.log(msg);
-    face.setAttribute('style', `transform: rotate(${msg.degree}deg)`)
+    face.setAttribute('style', `transform: rotate(${msg.degree}deg)`);
   }
 }
-
-// sends messages to the lambda
-// msg.addEventListener('keyup', function(e) {
-//   if (e.key == 'Enter') {
-//     let text = e.target.value; // get the text
-//     e.target.value = '';       // clear the text
-//     ws.send(JSON.stringify({text}));
-//   }
-// });
 
 function handleOrientation(e) {
   let turnY = event.gamma;

@@ -1,9 +1,7 @@
-/**
- * used to clean up event.requestContext.connectionId
- */
-let data = require('@architect/data');
-let arc = require('@architect/functions');
+const data = require('@architect/data');
+const arc = require('@architect/functions');
 
+// on disconnect event, remove connectionId from dynamo and publish connectionIds to remove from connected clients.
 exports.handler = async function ws(event) {
   console.log('ws-disconnect called with', event);
   const connectionId = event.requestContext.connectionId;
