@@ -17,7 +17,7 @@ exports.handler = async function ws(event) {
 
   // on connections map connection ids and send new faces to connected clients
   if(action === 'connected') {
-    let face = `<img src="staging/_static/cagepng.png" id=${connectionId}/>`;
+    let face = `<img src="/staging/_static/cagepng.png" id=${connectionId}/>`;
     let clients = scan.Items;
     await Promise.all(clients.map(item => {
       let id = item.connectionId;
