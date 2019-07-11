@@ -1,4 +1,12 @@
-https://fe5s1mm0qd.execute-api.us-east-1.amazonaws.com/staging
-https://t3kx8fv24k.execute-api.us-east-1.amazonaws.com/production
-wss://rhzc9f1yfg.execute-api.us-east-1.amazonaws.com/staging
-wss://fstphnuou6.execute-api.us-east-1.amazonaws.com/production
+# Serverless WebSockets with AWS API Gateway 
+
+This is a demo of live data connections between connected clients using AWS services. 
+
+Framework utilizes Arc.Codes 
+
+```
+$ npm i 
+$ npx hydrate // installs arc dependencies and node_modules for each $ handler
+$ npx sandbox // starts local dev sever
+$ npx deploy // deploys to /staging 
+``` 
