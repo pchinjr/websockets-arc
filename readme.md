@@ -2,7 +2,7 @@
 
 This is a demo of live data connections between connected clients using AWS services. 
 
-Framework utilizes Arc.Codes 
+Framework utilizes Arc.Codes v5.0 - currently updating to Arc v6 - follow progress here: http://github.com/pchinjr/cage-socket-arc6
 
 ```
 $ npm i 
